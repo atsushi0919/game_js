@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <style>
+      div {
+        position: absolute;
+        width: 60px;
+        height: 25px;
+        color: green;
+        top: 50px;
+      }
+    </style>
+    <script>
+      var ufo;
+      // キーが押されたときに keydown 実行
+      function init() {
+        window.addEventListener('keydown', keydown);
+        // オブジェクト = new 関数(引数1, 引数2, ...)
+        ufo = new UFO(document.getElementById('ufo'), 100);
+      }
+
+      function keydown(e) {
+        if (e.keyCode == 37) {
+          ufo.moveLeft();
+        } else if (e.keyCode == 39) {
+          ufo.moveRight();
+        }
+      }
+
+      // コンストラクタ
+      function UFO(_elem, _xpos) {
+        this.elem = _elem;
+        this.xpos = _xpos;
+
+        this.moveLeft = function () {
+          this.xpos -= 10;
+          this.elem.style.left = this.xpos + 'px';
+        };
+
+        this.moveRight = function () {
+          this.xpos += 10;
+          this.elem.style.left = this.xpos + 'px';
+        };
+        this.elem.style.left = this.xpos + 'px';
+      }
+    </script>
+    <title>UFO</title>
+  </head>
+  <!-- 読み込まれると init() が実行される -->
+  <body onload="init()">
+    <div id="ufo">&lt;(ooo)&gt;</div>
+  </body>
+</html>
