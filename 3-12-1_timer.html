@@ -1,0 +1,38 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <title>Timer</title>
+    <script>
+      var timerId
+
+      function timeoutStart() {
+        // タイマー開始
+        timerId = setTimeout(whattime, 3000)
+      }
+      function timeoutStop() {
+        // タイマー停止
+        clearTimeout(timerId)
+      }
+      function intervalStart() {
+        // 定期タイマー開始
+        timerId = setInterval(whattime, 2000)
+      }
+      function intervalStop() {
+        clearInterval(timerId)
+      }
+
+      function whattime() {
+        // 現在時刻
+        document.getElementById('info').textContent = new Date()
+      }
+    </script>
+  </head>
+  <body>
+    <button onclick="timeoutStart()">setTimeout</button>
+    <button onclick="timeoutStop()">clearTimeout</button>
+
+    <button onclick="intervalStart()">setInterval</button>
+    <button onclick="intervalStop()">clearInterval</button>
+    <p id="info">test</p>
+  </body>
+</html>
