@@ -16,13 +16,13 @@
         timer = NaN,
         ctx;
 
-      //Point object
+      // Point object
       function Point(x, y) {
         this.x = x;
         this.y = y;
       }
 
-      // initialize
+      // 初期化
       function init() {
         var canvas = document.getElementById('field');
         W = canvas.width / S;
@@ -30,10 +30,10 @@
         ctx = canvas.getContext('2d');
         ctx.font = '20px sans-serif';
 
-        // init snake
+        // snake 初期化
         snake.push(new Point(W / 2, H / 2));
 
-        // init food
+        // food 初期化
         for (var i = 0; i < 10; i++) {
           addFood();
         }
@@ -41,7 +41,7 @@
         window.onkeydown = keydown;
       }
 
-      // add food
+      // food 追加
       function addFood() {
         while (true) {
           var x = Math.floor(Math.random() * W);
@@ -54,7 +54,7 @@
         }
       }
 
-      // collision
+      // hit 判定
       function isHit(data, x, y) {
         for (var i = 0; i < data.length; i++) {
           if (data[i].x == x && data[i].y == y) {
@@ -64,7 +64,7 @@
         return false;
       }
 
-      // move food
+      // food 出現位置調整
       function moveFood(x, y) {
         foods = foods.filter(function (p) {
           return p.x != x || p.y != y;
@@ -95,14 +95,14 @@
             return;
         }
 
-        // gameover
+        // 終了判定
         if (isHit(snake, x, y) || x < 0 || x >= W || y < 0 || y >= H) {
           clearInterval(timer);
           paint();
           return;
         }
 
-        // add head
+        // 頭追加
         snake.unshift(new Point(x, y));
 
         if (isHit(foods, x, y)) {
@@ -116,7 +116,7 @@
 
       function paint() {
         ctx.clearRect(0, 0, W * S, H * S);
-        ctx.fillStyle = 'rgb(256,0,0)';
+        ctx.fillStyle = 'rgb(255,0,0)';
         ctx.fillText(point, S, S * 2);
         ctx.fillStyle = 'rgb(0,0,255)';
 
