@@ -3,7 +3,6 @@
   <head>
     <title>Blocks</title>
     <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=2.0" />
     <script type="text/javascript">
       'use strict';
       var ctx,
@@ -58,7 +57,7 @@
         this.point = (6 - i) * 10;
       }
 
-      function Puddle() {
+      function Paddle() {
         this.w = 110;
         this.h = 20;
         this.x = (WIDTH - this.w) / 2;
@@ -179,9 +178,9 @@
         blocks.some(function (block, i) {
           if (
             block.x - ball.r < nx &&
-            nx < block.x + block.w + block.r &&
+            nx < block.x + block.w + ball.r &&
             block.y - ball.r < ny &&
-            ny < block.y + block.h + block.r
+            ny < block.y + block.h + ball.r
           ) {
             hit = i;
             return true;
