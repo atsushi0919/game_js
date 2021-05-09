@@ -15,70 +15,70 @@
       }
     </style>
     <script type="text/javascript">
-      'use strict';
-      var W = 10,
-        H = 10,
-        BOMB = 10,
+      'use strict'
+      var W = 18,
+        H = 18,
+        BOMB = 40,
         cell = [],
-        opened = 0;
+        opened = 0
 
       function init() {
-        var main = document.getElementById('main');
+        var main = document.getElementById('main')
 
         for (var i = 0; i < H; i++) {
-          cell[i] = [];
-          var tr = document.createElement('tr');
+          cell[i] = []
+          var tr = document.createElement('tr')
           for (var j = 0; j < W; j++) {
-            var td = document.createElement('td');
-            td.addEventListener('click', click);
-            td.className = 'cell';
-            td.y = i;
-            td.x = j;
-            cell[i][j] = td;
-            tr.appendChild(td);
+            var td = document.createElement('td')
+            td.addEventListener('click', click)
+            td.className = 'cell'
+            td.y = i
+            td.x = j
+            cell[i][j] = td
+            tr.appendChild(td)
           }
-          main.appendChild(tr);
+          main.appendChild(tr)
         }
 
         for (var i = 0; i < BOMB; i++) {
           while (true) {
-            var x = Math.floor(Math.random() * W);
-            var y = Math.floor(Math.random() * H);
+            var x = Math.floor(Math.random() * W)
+            var y = Math.floor(Math.random() * H)
             if (!cell[x][y].bomb) {
-              cell[x][y].bomb = true;
+              cell[x][y].bomb = true
               //cell[x][y].textContent = '*';
-              break;
+              break
             }
           }
         }
       }
 
       function count(x, y) {
-        var b = 0;
+        var b = 0
         for (var j = y - 1; j <= y + 1; j++) {
           for (var i = x - 1; i <= x + 1; i++) {
             if (cell[j] && cell[j][i]) {
-              if (cell[j][i].bomb) b++;
+              if (cell[j][i].bomb) b++
             }
           }
         }
-        return b;
+        return b
       }
 
       function open(x, y) {
         for (var j = y - 1; j <= y + 1; j++) {
           for (var i = x - 1; i <= x + 1; i++) {
             if (cell[j] && cell[j][i]) {
-              var c = cell[j][i];
+              var c = cell[j][i]
               if (c.opened || c.bomb) {
-                continue;
+                continue
               }
-              flip(c);
-              var n = count(i, j);
+              flip(c)
+              var n = count(i, j)
               if (n == 0) {
-                open(i, j);
+                open(i, j)
               } else {
-                c.textContent = n;
+                c.textContent = n
               }
             }
           }
@@ -86,26 +86,26 @@
       }
 
       function flip(cell) {
-        cell.className = 'cell open';
-        cell.opened = true;
+        cell.className = 'cell open'
+        cell.opened = true
         if (++opened >= W * H - BOMB) {
-          document.getElementById('title').textContent = 'Good Job!';
+          document.getElementById('title').textContent = 'Good Job!'
         }
       }
 
       function click(e) {
-        var src = e.currentTarget;
+        var src = e.currentTarget
         if (src.bomb) {
           cell.forEach(function (tr) {
             tr.forEach(function (td) {
               if (td.bomb) {
-                td.textContent = '+';
+                td.textContent = '+'
               }
-            });
-          });
-          document.getElementById('title').textContent = 'Game Over';
+            })
+          })
+          document.getElementById('title').textContent = 'Game Over'
         } else {
-          open(src.x, src.y);
+          open(src.x, src.y)
         }
       }
     </script>
