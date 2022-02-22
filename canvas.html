@@ -1,0 +1,74 @@
+<!DOCTYPE html>
+<html lang="ja">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Canvas</title>
+  </head>
+  <body>
+    <h1>TEST</h1>
+    <canvas id="canvas" width="600" height="300"> </canvas>
+
+    <script type="text/javascript">
+      draw()
+
+      function draw() {
+        const canvas = document.getElementById('canvas')
+        const canvasWidth = canvas.width
+        const canvasHeight = canvas.height
+        if (!canvas || !canvas.getContext) {
+          return false
+        }
+        // 青: #38b6ff
+        // 黄: #ffde59
+        // 灰: #d9d9d9
+        const ctx = canvas.getContext('2d')
+        ctx.fillStyle = '#000000'
+        ctx.strokeStyle = '#38b6ff'
+        ctx.lineWidth = 4
+        ctx.textBaseline = 'middle'
+        ctx.textAlign = 'center'
+        let fontSize = 28
+        ctx.font = 'bold ' + fontSize + 'px 游ゴシック'
+
+        let array = [8, 7, 9, 1, 5, 6, 2, 10, 4, 3]
+        let x = 84
+        let y = canvas.height / 2
+        let w = 44
+        let h = 44
+        let r = 5
+
+        let elements = []
+        for (let num of array) {
+          rectNum(ctx, num, x, y, w, h, r)
+          elements.push({ n: num, x: x, y: y })
+          x += w + ctx.lineWidth
+        }
+        console.log(elements)
+      }
+
+      // 角丸 + 数字
+      function rectNum(ctx, n, x, y, w, h, r, c = '#ffffff') {
+        let sx = x - w / 2
+        let sy = y - h / 2
+        ctx.fillStyle = c
+        ctx.beginPath()
+        ctx.moveTo(sx + r, sy)
+        ctx.lineTo(sx + w - r, sy)
+        ctx.arc(sx + w - r, sy + r, r, Math.PI * (3 / 2), 0, false)
+        ctx.lineTo(sx + w, sy + h - r)
+        ctx.arc(sx + w - r, sy + h - r, r, 0, Math.PI * (1 / 2), false)
+        ctx.lineTo(sx + r, sy + h)
+        ctx.arc(sx + r, sy + h - r, r, Math.PI * (1 / 2), Math.PI, false)
+        ctx.lineTo(sx, sy + r)
+        ctx.arc(sx + r, sy + r, r, Math.PI, Math.PI * (3 / 2), false)
+        ctx.closePath()
+        ctx.fill()
+        ctx.stroke()
+        ctx.fillStyle = '#000000'
+        ctx.fillText(n, x, y)
+      }
+    </script>
+  </body>
+</html>
